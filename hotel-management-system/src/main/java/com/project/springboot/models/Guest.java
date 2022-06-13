@@ -31,9 +31,9 @@ public class Guest {
 	private String permanentAddress;
 	
 	@Column(name="current_address")
-	private String curerntAddress;
+	private String currentAddress;
 	
-	@Column(name="phpne_number")
+	@Column(name="phone_number")
 	private String phoneNumber;
 	
 	@Column(name="email")
@@ -49,7 +49,7 @@ public class Guest {
 		
 	}
 	
-	public Guest(String name, String dob, String state, String city, String permanentAddress, String curerntAddress,
+	public Guest(String name, String dob, String state, String city, String permanentAddress, String currentAddress,
 			String phoneNumber, String email, String idType, String idDocument) {
 		super();
 		
@@ -58,7 +58,7 @@ public class Guest {
 		this.state = state;
 		this.city = city;
 		this.permanentAddress = permanentAddress;
-		this.curerntAddress = curerntAddress;
+		this.currentAddress = currentAddress;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.idType = idType;
@@ -113,12 +113,12 @@ public class Guest {
 		this.permanentAddress = permanentAddress;
 	}
 
-	public String getCurerntAddress() {
-		return curerntAddress;
+	public String getCurrentAddress() {
+		return currentAddress;
 	}
 
-	public void setCurerntAddress(String curerntAddress) {
-		this.curerntAddress = curerntAddress;
+	public void setCurrentAddress(String currentAddress) {
+		this.currentAddress = currentAddress;
 	}
 
 	public String getPhoneNumber() {

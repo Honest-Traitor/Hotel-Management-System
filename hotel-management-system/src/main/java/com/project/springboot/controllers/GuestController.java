@@ -62,7 +62,7 @@ public class GuestController {
 		guest.setState(guestDetails.getState());
 		guest.setCity(guestDetails.getCity());
 		guest.setPermanentAddress(guestDetails.getPermanentAddress());
-		guest.setCurerntAddress(guestDetails.getCurerntAddress());
+		guest.setCurrentAddress(guestDetails.getCurrentAddress());
 		guest.setPhoneNumber(guestDetails.getPhoneNumber());
 		guest.setEmail(guestDetails.getEmail());
 		guest.setIdType(guestDetails.getIdType());
