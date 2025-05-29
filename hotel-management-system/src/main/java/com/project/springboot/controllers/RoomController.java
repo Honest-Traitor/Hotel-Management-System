@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.springboot.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,45 +27,32 @@ import com.project.springboot.repositories.RoomRepository;
 public class RoomController {
 	
 	@Autowired
-	private RoomRepository roomRepository;
+	private RoomService roomService;
 
 	//	get all Rooms API
 	@GetMapping("/rooms/")	
 	public List<Room> getAllRooms(){
-		return roomRepository.findAll();
+		return roomService.getAllRooms();
 	}
 
 	//	create Room API
 	@PostMapping("/room-create")		
 	public Room createRoom(@RequestBody Room room) {
-		return roomRepository.save(room);
-
+		return roomService.createRoom(room);
 	}
 
 	//	get Room by Id API
 	@GetMapping("/room-get/{id}")	
 	public ResponseEntity<Room> getRoomById(@PathVariable String id){
 
-		Long idLong = Long.parseUnsignedLong(id);
-		Room room = roomRepository.findById(idLong)
-				.orElseThrow(()-> new ResourceNotFoundException("Room doesn't exist with id [" + id + "]"));
+		Room room = roomService.getRoomById(id);
 		return ResponseEntity.ok(room);
 	}
 
 	//	update Room by Id API
 	@PutMapping("/room-update/{id}")	
-	public ResponseEntity<Room> updateRoomById(@RequestBody Room roomDetails, @PathVariable Long id){
-
-		Room room = roomRepository.findById(id)
-				.orElseThrow(()-> new ResourceNotFoundException("Room doesn't exist with id [" + id + "]"));
-		room.setRoomNo(roomDetails.getRoomNo());
-		room.setRoomTypeCode(roomDetails.getRoomTypeCode());
-		room.setFloor(roomDetails.getFloor());
-		room.setFrontFace(roomDetails.getFrontFace());
-		room.setAc(roomDetails.getAc());
-		room.setPrice(roomDetails.getPrice());
-		
-		Room updatedRoom = roomRepository.save(room);
+	public ResponseEntity<Room> updateRoomById(@RequestBody Room roomDetails, @PathVariable String id){
+		Room updatedRoom = roomService.updateRoomById(roomDetails,id);
 		return ResponseEntity.ok(updatedRoom);
 	}
 	
@@ -72,12 +60,7 @@ public class RoomController {
 	@DeleteMapping("/room-delete/{id}")
 	public ResponseEntity<Map<String,Boolean>> deleteRoomById(@PathVariable String id){
 		
-		Long idLong = Long.parseUnsignedLong(id);
-		Room room = roomRepository.findById(idLong)
-				.orElseThrow(()-> new ResourceNotFoundException("Room doesn't exist with id [" + id + "]"));
-		roomRepository.delete(room);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
+		Map response = roomService.deleteRoomeById(id);
 		return ResponseEntity.ok(response);
 	}
 
